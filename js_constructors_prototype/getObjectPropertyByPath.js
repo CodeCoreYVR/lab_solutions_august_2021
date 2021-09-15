@@ -74,12 +74,12 @@ class Example {
     }
 }
 
-// class Thief = {message: "Stole it!"}
+// class Thief = { message: "Stole it!" }
 
 const example = new Example()
 example.show()
 
-example.show.call(thief)
+// example.show.call(thief)
 
 // function getByPathA(str, objTemp = this) {
 //     const index = str.indexOf('.');
