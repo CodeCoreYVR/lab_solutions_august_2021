@@ -3,12 +3,13 @@ const chalk = require("chalk");
 // to variables: colour, width and height.
 const [, , colour, width, height] = process.argv;
 
+
 const board = Array.from({ length: width * height })
     // Alternate the background color of even numbered
     // characters
     .map(
         (v, i) =>
-            (i + 1 + Math.floor(i / width)) % 2 === 0
+            (i + 1 + (width % 2 == 0 ? Math.floor(i / width) : 0)) % 2 === 0
                 ? chalk.bgKeyword(colour)(" ")
                 : " "
     )
