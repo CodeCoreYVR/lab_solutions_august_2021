@@ -38,21 +38,6 @@ function writeFile(filename, content) {
 
 // Promise.all
 
-//no chain
-readdir('./contents').then(fileNames => {
-    const promiseArr = [];
-    fileNames.forEach(element => {
-        promiseArr.push(readFile(`./contents/${element}`))
-    });
-    Promise.all(fileNames.map(fileName => readFile(`./contents/${fileName}`))).then(data => {
-        const result = data.join('\n');
-        writeFile('file.txt', result).then(() => {
-            console.log('completed!');
-        })
-    })
-})
-
-
 
 
 //chain
@@ -61,7 +46,8 @@ readdir('./contents').then(fileNames => {
     fileNames.forEach(element => {
         promiseArr.push(readFile(`./contents/${element}`))
     });
-    return Promise.all(fileNames.map(fileName => readFile(`./contents/${fileName}`)))
+    return Promise.all(promiseArr)
+    // return Promise.all(fileNames.map(fileName => readFile(`./contents/${fileName}`)))
 }).then(data => {
     const result = data.join('\n');
     return writeFile('file.txt', result)
