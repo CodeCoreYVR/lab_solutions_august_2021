@@ -8,7 +8,7 @@
 Product.destroy_all
 
 
-1000.times do 
+50.times do 
     created_at = Faker::Date.backward(days: 365 * 2)
     Product.create(
         title: Faker::Company.name,
