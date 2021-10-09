@@ -16,6 +16,9 @@
             <%= review.body %>
             <%= review.rating %>
             <small>
+            <%= link_to("Edit", edit_product_review_path(@product.id, review)) %>
+            </small>
+            <small>
             <%= link_to("Delete", product_review_path(@product.id, review) ,method: :delete, data:{confirm:"Are you sure?"}) %>
             </small>
         </li>

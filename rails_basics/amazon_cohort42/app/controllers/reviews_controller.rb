@@ -23,4 +23,22 @@ class ReviewsController < ApplicationController
         end
         
     end
+
+    def edit
+        @product = Product.find params[:product_id]
+        @review = Review.find params[:id]
+        @reviews = @product.reviews
+        render '/products/show'
+    end
+
+    def update
+        @product = Product.find(params[:product_id])
+        @review = Review.find params[:id]
+        if @review.update(params.require(:review).permit(:rating,:body))
+            redirect_to product_path(@product.id)
+        else
+            @reviews = @product.reviews
+            render '/products/show'
+        end
+    end
 end
