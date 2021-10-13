@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+    before_action :authenticate_user!, except: [:index, :show]
     def index
         @products = Product.all
     end
@@ -9,6 +10,7 @@ class ProductsController < ApplicationController
 
     def create
         @product = Product.new product_params
+        @product.user = current_user
         if @product.save
             redirect_to product_path(@product.id)
         else

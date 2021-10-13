@@ -9,6 +9,8 @@
 <small>
     <%= link_to("Edit", edit_product_path(@product.id)) %>
 </small>
+<h5> Created by <%= @product.user.full_name%>
+</h5>
 </div> 
 <ul>
     <% @reviews.each do |review| %>
@@ -18,6 +20,8 @@
             <small>
             <%= link_to("Delete", product_review_path(@product.id, review) ,method: :delete, data:{confirm:"Are you sure?"}) %>
             </small>
+            <h5> Reviewed by <%= review.user.full_name%>
+            </h5>
         </li>
     <% end %>
 </ul>
