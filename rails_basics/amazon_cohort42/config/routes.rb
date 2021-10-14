@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post("/contact_submit",{to:"welcome#thankyou",as: :contact_submit})
   get("/new_bill",{to:"bills#new_bill"})
   get("/bill", {to: 'bills#result', as: :bill})
-
+  get("/admin/panel", {to: 'welcome#admin'})
   # Labs for rails CRUD
   # get("/products",to:"products#index")
   # get("/products/new",to:"products#new",as: :new_product)
