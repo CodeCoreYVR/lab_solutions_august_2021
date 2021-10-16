@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :news_article do
-    title { "MyString" }
-    description { "MyText" }
-    published_at { "2021-10-14 16:08:31" }
-    view_count { 1 }
+    title { Faker::Food.sushi + "#{rand(10..1000)}" }
+    description { Faker::Food.description }
+    view_count { rand(1..10000) }
+    published_at { Faker::Date.forward(days: 1) }
   end
 end
