@@ -8,6 +8,9 @@ class User < ApplicationRecord
     has_many :products, dependent: :destroy
     has_many :reviews, dependent: :destroy
 
+    has_many :likes, dependent: :destroy
+    has_many :liked_reviews, through: :likes, source: :review
+    
     validates :first_name, :last_name, :email, :password, presence: true
     
     def full_name

@@ -20,6 +20,14 @@
             <small>
             <%= link_to("Delete", product_review_path(@product.id, review) ,method: :delete, data:{confirm:"Are you sure?"}) %>
             </small>
+            <small>
+            <% like = review.likes.find_by(user: current_user) %>
+            <% if like.present? %>
+            <%= link_to "Unlike", like_path(like), method: :delete %>
+            <% else %>
+            <%= link_to "Like", product_review_likes_path(@product, review), method: :post %>
+            <% end%>
+            </small>
             <h5> Reviewed by <%= review.user.full_name%>
             </h5>
         </li>
