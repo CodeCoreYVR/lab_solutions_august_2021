@@ -3,6 +3,10 @@ class Product < ApplicationRecord
     before_save :capitalize_title
 
     has_many :reviews, dependent: :destroy
+
+    has_many :favourites, dependent: :destroy
+    has_many :favouriters, through: :favourites, source: :user
+    
     belongs_to :user
     validates :title, presence: true, uniqueness: { case_sensitive: false }
     validates :price, numericality:{greater_than: 0}
