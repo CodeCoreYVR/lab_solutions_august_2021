@@ -14,6 +14,9 @@ class User < ApplicationRecord
     has_many :favourites
     has_many :favourited_products, through: :favourites, source: :product
 
+    has_many :votes
+    has_many :vote_reviews, through: :votes, source: :review
+
     validates :first_name, :last_name, :email, :password, presence: true
     
     def full_name
