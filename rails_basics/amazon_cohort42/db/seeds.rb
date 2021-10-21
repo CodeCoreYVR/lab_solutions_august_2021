@@ -7,8 +7,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Review.destroy_all
 Product.destroy_all
+Tag.destroy_all
 
-
+15.times do
+    Tag.create(
+      name: Faker::ProgrammingLanguage.name
+    )
+  end
+  
+  tags = Tag.all
 50.times do 
     created_at = Faker::Date.backward(days: 365 * 2)
     p = Product.create(
@@ -22,6 +29,7 @@ Product.destroy_all
         rand(1..5).times do 
             Review.create(rating:3,body:Faker::Company.name,product:p)
         end
+        p.tags = tags.shuffle.slice(0, rand(tags.count / 2))
     end
     
 end
@@ -30,3 +38,4 @@ reviews = Review.all
 products = Product.all
 puts reviews.count
 puts products.count
+puts tags.count

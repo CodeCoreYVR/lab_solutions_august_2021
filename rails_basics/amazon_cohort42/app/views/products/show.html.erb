@@ -11,6 +11,11 @@
 </small>
 <h5> Created by <%= @product.user.full_name%>
 </h5>
+
+<% @product.tags.each do |tag|%>
+<%= link_to tag.name, products_path(tag: tag.id), class: "badge badge-pill badge-primary" %>
+<% end %>
+
 <% if @favourite%>
   <%= link_to @favourite.is_favourite ? "Cancel Favourite" : "Cancel Unavourite", favourite_path(@favourite), class:"btn btn-light ", method: :delete%>
 <% else%>
