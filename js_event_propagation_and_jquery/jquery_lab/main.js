@@ -98,4 +98,18 @@ $('document').ready(() => {
         // $('#form-1 > input[type=text]').val('');
     });
     //endregion
+
+    //#region lab 5
+
+    $('#form-1 input[type=text]').on('input', () => {
+        // $("#form-message").text($('#form-1 input[type=text]').val())
+        $("#form-message").text($('#form-1 input[type=text]').val().split('').reverse().join(''));
+    });
+
+    $('#orange-container').on('click', e => {
+        $('#orange-container .red').remove();
+    });
+
+    //#endregion
+
 });
