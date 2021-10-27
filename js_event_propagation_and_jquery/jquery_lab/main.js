@@ -1,5 +1,6 @@
 $('document').ready(() => {
     //#region lab 1
+
     $('.shape').on('mouseover', event => {
         $(event.currentTarget).addClass('highlight');
     });
@@ -18,5 +19,34 @@ $('document').ready(() => {
         }
     });
     //#endregion
+
+    //#region lab 2
+
+    $('tbody').prepend('<tr><td>0</td><td>-</td></tr>');
+
+    // When the form's submit button is clicked, append the text input's current value to the form message.
+    $('#form-1').submit(function () {
+        $('#form-message').append(
+            $(this)
+                .find('input[type=text]')
+                .val()
+        );
+    });
+
+    $('#button-1').on('click', () => {
+        $("#green-container").toggle();
+    });
+    $('#button-2').on('click', () => {
+        $("#button-message").fadeOut("slow");
+    });
+    $('#button-3').on('click', () => {
+        $("#button-message").fadeIn("slow");
+    });
+    $('#button-4').on('click', () => {
+        $("#green-container").slideUp("slow");
+    });
+
+    //#endregion
+
 
 });
