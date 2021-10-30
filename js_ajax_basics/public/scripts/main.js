@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
         const { currentTarget } = event
         const formData = new FormData(currentTarget);
-        Message.create({ body: formData.get('body') }).then(() => {
+        Message.create({ body: formData.get('body'), username: formData.get('username') }).then(() => {
             console.log('Message created!');
             refreshMessages();
             currentTarget.reset();
