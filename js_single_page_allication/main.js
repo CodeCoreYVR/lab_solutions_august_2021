@@ -49,6 +49,15 @@ const Product = {
             body: JSON.stringify(params)
         }).then(res => res.json());
     },
+    delete(id) {
+        return fetch(`${BASE_URL}/products/${id}`, {
+            credentials: "include",
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json());
+    }
 };
 
 function refreshProducts() {
@@ -155,7 +164,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const id = link.getAttribute("data-id");
             event.preventDefault();
             if (targetPage.indexOf('delete') > -1) {
-
+                Product.delete(id).then(res => {
+                    navigateTo("product-index");
+                });
             } else {
                 setupForm(id);
                 navigateTo(targetPage);
