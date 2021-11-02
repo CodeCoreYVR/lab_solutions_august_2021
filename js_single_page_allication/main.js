@@ -1,4 +1,23 @@
 const BASE_URL = "http://localhost:3000/api/v1";
+const Session = {
+    create(params) {
+        return fetch(`${BASE_URL}/session`, {
+            credentials: "include",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
+        }).then(res => res.json());
+    }
+};
+
+Session.create({
+    email: "admin@user.com",
+    password: "123"
+}).then(data => {
+    console.log(data)
+});
 const Product = {
     all() {
         return fetch(`${BASE_URL}/products`, {
@@ -8,6 +27,16 @@ const Product = {
     one(id) {
         return fetch(`${BASE_URL}/products/${id}`, {
             credentials: "include"
+        }).then(res => res.json());
+    },
+    create(params) {
+        return fetch(`${BASE_URL}/products`, {
+            credentials: "include",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
         }).then(res => res.json());
     }
 };
@@ -87,5 +116,19 @@ document.addEventListener("DOMContentLoaded", () => {
             getAndDisplayProduct(id);
         }
     });
+    const newProductForm = document.querySelector("#new-product-form");
+    newProductForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
 
+        const newProduct = {
+            title: formData.get("title"),
+            price: formData.get("price"),
+            description: formData.get("description")
+        };
+        Product.create(newProduct).then(product => {
+            newProductForm.reset();
+            getAndDisplayProduct(product.id);
+        });
+    });
 });
