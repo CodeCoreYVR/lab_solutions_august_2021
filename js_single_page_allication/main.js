@@ -38,7 +38,17 @@ const Product = {
             },
             body: JSON.stringify(params)
         }).then(res => res.json());
-    }
+    },
+    update(id, params) {
+        return fetch(`${BASE_URL}/products/${id}`, {
+            credentials: "include",
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(params)
+        }).then(res => res.json());
+    },
 };
 
 function refreshProducts() {
@@ -58,7 +68,14 @@ function refreshProducts() {
             .join("");
     });
 }
-
+function setupForm(id) {
+    Product.one(id).then(product => {
+        document.querySelector("#edit-product-form [name=title]").value = product.title;
+        document.querySelector("#edit-product-form [name=description]").value = product.description;
+        document.querySelector("#edit-product-form [name=price]").value = product.price;
+        document.querySelector("#edit-product-form [name=id]").value = product.id;
+    });
+}
 function navigateTo(sectionId) {
     if (sectionId === "product-index") {
         refreshProducts();
@@ -128,6 +145,36 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         Product.create(newProduct).then(product => {
             newProductForm.reset();
+            getAndDisplayProduct(product.id);
+        });
+    });
+    document.querySelector("#product-show").addEventListener("click", event => {
+        const link = event.target.closest("[data-target]");
+        if (link) {
+            const targetPage = link.getAttribute("data-target");
+            const id = link.getAttribute("data-id");
+            event.preventDefault();
+            if (targetPage.indexOf('delete') > -1) {
+
+            } else {
+                setupForm(id);
+                navigateTo(targetPage);
+            }
+        }
+    });
+
+    const editProductForm = document.querySelector("#edit-product-form");
+    editProductForm.addEventListener("submit", event => {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+        const updatedProduct = {
+            title: formData.get("title"),
+            description: formData.get("description"),
+            price: formData.get("price")
+        };
+        Product.update(formData.get("id"), updatedProduct).then(product => {
+            editProductForm.reset();
             getAndDisplayProduct(product.id);
         });
     });
