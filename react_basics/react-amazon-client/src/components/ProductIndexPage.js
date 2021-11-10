@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import NewProductForm from './NewProductForm';
+import NewProductForm from './NewProductForm';
 import productsData from '../mock_data/productIndexData.json'
 
 
@@ -27,7 +27,6 @@ class ProductIndexPage extends Component {
         });
     }
     deleteProduct(id) {
-        // id = 117 
         this.setState({ products: this.state.products.filter((element) => element.id !== id) });
     }
     render() {
@@ -53,7 +52,7 @@ class ProductIndexPage extends Component {
                         </li>
                     ))}
                 </ul>
-                {/* <NewProductForm onCreateProduct={this.createProduct} /> */}
+                <NewProductForm onCreateProduct={this.createProduct} />
             </main>
         );
     }
