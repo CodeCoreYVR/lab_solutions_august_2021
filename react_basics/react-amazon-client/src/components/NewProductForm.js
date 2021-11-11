@@ -1,4 +1,5 @@
 import React from 'react';
+import { Product } from '../request'
 
 function NewProductForm(props) {
     function handleSubmit(event) {
@@ -6,10 +7,14 @@ function NewProductForm(props) {
         const { currentTarget } = event;
         const formData = new FormData(currentTarget);
 
-        props.onCreateProduct({
+        Product.create({
             title: formData.get('title'),
-            price: formData.get('price')
-        });
+            price: formData.get('price'),
+            description: formData.get("description")
+        }).then(data => {
+            const pid = data.id;
+            props.history.push(`/products/${pid}`)
+        })
         currentTarget.reset();
     }
     return (
@@ -17,6 +22,10 @@ function NewProductForm(props) {
             <div className="field">
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title" id="title" placeholder="Please Enter Title" />
+            </div>
+            <div className="field">
+                <label htmlFor="description">Description</label>
+                <input type="text" name="description" id="description" placeholder="Please Enter Title" />
             </div>
             <div className="field">
                 <label htmlFor="price">Price</label>
