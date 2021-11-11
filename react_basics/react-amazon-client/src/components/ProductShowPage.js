@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import ProductDetails from './ProductDetails';
 import ReviewList from './ReviewList';
-import productData from '../mock_data/productData.json';
+import { Product } from '../request'
 
 
 export default class ProductShowPage extends Component {
     constructor(props) {
         super(props);
-        this.state = productData;
+        this.state = {};
         this.deleteReview = this.deleteReview.bind(this);
+    }
+    componentDidMount() {
+        const pid = this.props.match.params.id;
+        Product.one(pid).then(data => {
+            console.log(data)
+            this.setState(data)
+        })
     }
     deleteReview(reviewId) {
         this.setState((state) => {
