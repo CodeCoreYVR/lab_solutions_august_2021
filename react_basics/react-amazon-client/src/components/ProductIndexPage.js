@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NewProductForm from './NewProductForm';
-import productsData from '../mock_data/productIndexData.json'
+import productsData from '../mock_data/productIndexData.json';
+import { NavLink } from 'react-router-dom'
 
 
 class ProductIndexPage extends Component {
@@ -37,7 +38,7 @@ class ProductIndexPage extends Component {
                     {this.state.products.map((product, index) => (
                         <li key={index}>
                             <p>
-                                <b>{product.title}</b>
+                                <NavLink to={`/products/${product.id}`}>{product.title}</NavLink>
                                 <button className="ui right floated red button" onClick={() => this.deleteProduct(product.id)} >
                                     Delete
                                 </button>
