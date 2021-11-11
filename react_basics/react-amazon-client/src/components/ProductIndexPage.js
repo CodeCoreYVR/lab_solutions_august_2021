@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import NewProductForm from './NewProductForm';
-import productsData from '../mock_data/productIndexData.json';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
+import { Product } from '../request'
 
 
 class ProductIndexPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: productsData
+            products: []
         };
         this.createProduct = this.createProduct.bind(this);
+    }
+    componentDidMount() {
+        Product.all().then(data => {
+            this.setState(
+                {
+                    products: data
+                }
+            )
+        })
     }
     createProduct(params) {
         this.setState((state) => {
