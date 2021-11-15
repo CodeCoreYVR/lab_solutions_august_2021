@@ -7,7 +7,8 @@ import NavBar from './components/NavBar';
 import ProductNewPage from './components/ProductNewPage';
 import React, { Component } from 'react';
 import SignInPage from './components/SignInPage'
-import { Session } from './request'
+import { Session } from './request';
+import AuthRoute from './components/AuthRoute'
 
 export default class App extends Component {
   constructor(props) {
@@ -38,9 +39,24 @@ export default class App extends Component {
         <Switch>
           {/* /products/12 */}
           <Route path='/' exact component={Home} />
-          <Route path='/products' exact component={ProductIndexPage} />
-          <Route path='/products/new' component={ProductNewPage} />
-          <Route path='/products/:id' component={ProductShowPage} />
+          <AuthRoute
+            isAuthenticated={this.state.user}
+            path="/products/"
+            exact
+            component={ProductIndexPage}
+          />
+          <AuthRoute
+            isAuthenticated={this.state.user}
+            path="/products/new"
+            exact
+            component={ProductNewPage}
+          />
+          <AuthRoute
+            isAuthenticated={this.state.user}
+            path="/products/:id"
+            exact
+            component={ProductShowPage}
+          />
           <Route
             path="/sign_in"
             exact
