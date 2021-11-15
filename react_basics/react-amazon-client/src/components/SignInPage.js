@@ -1,7 +1,7 @@
 import React from 'react';
 import { Session } from '../request';
 
-export default function SignInPage() {
+export default function SignInPage(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
@@ -9,7 +9,11 @@ export default function SignInPage() {
             email: formData.get("email"),
             password: formData.get("password")
         }).then(data => {
-            console.log(data);
+            // console.log(data);
+            // {id: 5}  {status: 404}
+            if (data.id) {
+                props.onSignIn();
+            }
         })
     }
     return (

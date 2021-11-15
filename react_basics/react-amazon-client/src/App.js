@@ -13,25 +13,34 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = { user: {} }
+    this.getCurrent = this.getCurrent.bind(this)
   }
   componentDidMount() {
-    // Session.create({ email: "admin@user.com", password: "123" }).then(data => {
-    //   this.setState({
-    //     user: data
-    //   })
-    // })
+    this.getCurrent();
+  }
+
+  getCurrent() {
+    Session.current().then(data => {
+      this.setState({ user: data.user })
+    })
   }
   render() {
     return (
       <BrowserRouter>
-        <NavBar />
+        <NavBar current_user={this.state.user} />
         <Switch>
           {/* /products/12 */}
           <Route path='/' exact component={Home} />
           <Route path='/products' exact component={ProductIndexPage} />
           <Route path='/products/new' component={ProductNewPage} />
           <Route path='/products/:id' component={ProductShowPage} />
-          <Route path="/sign_in" component={SignInPage} />
+          <Route
+            path="/sign_in"
+            exact
+            render={routeProps => (
+              <SignInPage onSignIn={this.getCurrent} {...routeProps} />
+            )}
+          />
         </Switch>
       </BrowserRouter>
     )
